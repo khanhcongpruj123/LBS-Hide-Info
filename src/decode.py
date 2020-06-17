@@ -45,12 +45,19 @@ def getBin(number, index):
 def decodeImage(message, image):
     if checkValidMessage(message, image) == False:
         return
-
+    # chen thong tin ban quyen vao gia tri cac bit thap cua mau do trong anh
     redValues = getRedValues(image)
+
     messAscii = getAciiFromString(message)
 
+    # chi so cho day message da duoc chuyen thanh ma ascii
     indexMess = 0
+
+    # chi so bit cua tung tu trong message, o day dung 8 bit de bieu dien 1 tu, indexEight se
+    # tang dan tu 0 den 7 tuong ung voi 2^0, 2^1,... den khi bang 8 thi se quay nguoc lai bang 0
+    # de gan tu moi
     indexEight = 0
+
     sizeMess = len(messAscii)
 
     # chen thong tin ban quyen duoi dang bit vao bit thap cua anh
@@ -71,6 +78,7 @@ def decodeImage(message, image):
 
         redValues[i] = red
 
+    # tao ma tran diem anh moi da decode
     [w, h] = image.shape[:2]
     index = 0
     resImg = img
@@ -80,13 +88,17 @@ def decodeImage(message, image):
             index = index + 1
 
     # luu anh vua decode
-    cv2.imwrite("decode.png", img)
+    cv2.imwrite("./assets/decode/decode.png", img)
+
+# ====================== main ===========================
 
 
 img = cv2.imread(
-    "/Users/icongkhanh/Desktop/MyProjects/thong-tin-ban-quyen-anh/assets/img.jpg")
-message = "Khanh Yeu Vy Rat Nhieu!"
+    "./assets/img.jpg")
+message = input("Enter your message: ")
 
 print("Loading...")
 decodeImage(message, img)
 print("Done!")
+
+# ====================== main ===========================
